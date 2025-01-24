@@ -3,7 +3,9 @@ import datetime
 from getpass import getpass
 import random
 from time import sleep
+import os
 
+from dotenv import load_dotenv
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
@@ -11,6 +13,8 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver import ActionChains
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+
+load_dotenv()
 
 
 def setup():
@@ -33,7 +37,7 @@ def login(driver, email, password):
     print("opening client id input and writing the server")
     sleep(1)
     action_chains = ActionChains(driver)
-    action_chains.send_keys(Keys.TAB).pause(1).send_keys(Keys.TAB).pause(0.5).send_keys("aeti6951").pause(
+    action_chains.send_keys(Keys.TAB).pause(1).send_keys(Keys.TAB).pause(0.5).send_keys(os.getenv("ORG_ID")).pause(
         0.5
     ).send_keys(Keys.TAB).pause(0.5).send_keys(Keys.ENTER).perform()
     sleep(1)
