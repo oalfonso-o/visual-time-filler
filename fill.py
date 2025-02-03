@@ -97,7 +97,19 @@ def submit_dates(driver, dates):
         sleep(2)
 
         date_id = date.replace("-", "")
-        driver.find_element(By.ID, date_id).click()
+        print(f"clicking 'date id: {date_id}'")
+
+        try:
+            driver.find_element(By.ID, date_id).click()
+        except Exception:  # we ASUME it failed because we changed month and our day belongs to prev month
+            print(f"NOT FOUND date id: {date_id}', going one month back!")
+            prev_month_button = driver.find_elements(By.CLASS_NAME, "dx-calendar-navigator-previous-month")[0]
+            prev_month_button.click()
+            sleep(2)
+            print(f"clicking 'date id: {date_id}' 2nd attempt")
+            driver.find_element(By.ID, date_id).click()
+
+        print("clicking 'listCalendarTemplate'")
         driver.find_element(By.ID, "listCalendarTemplate").click()
         print("now all set, we can start switching day by day throught the url")
         sleep(1)
