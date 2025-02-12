@@ -200,7 +200,10 @@ def fill(date_from, date_to, email, password):
 
     dates = parse_dates(date_from, date_to)
 
-    submit_dates(driver, dates)
+    if not dates:
+        print("NO DATES in the range selected, check your dates...")
+    else:
+        submit_dates(driver, dates)
 
     print("closing")
     driver.quit()
